@@ -1,0 +1,8 @@
+<!-- index.html -->
+<html>
+    <script type="module">
+        import { Popcorn } from "./wasm/popcorn.js";
+        await Popcorn.init({ onStdout: console.log, debug: true });
+    </script>
+    <body></body>
+</html>
