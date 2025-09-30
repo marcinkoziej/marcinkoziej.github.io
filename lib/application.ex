@@ -4,6 +4,7 @@ defmodule Portfolio.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      Portfolio.PaneSupervisor,
       Portfolio.Worker
     ]
 

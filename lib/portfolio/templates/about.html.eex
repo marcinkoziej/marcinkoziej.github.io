@@ -1,0 +1,13 @@
+<header>About me<span class="close">X</span></header>
+<div>
+    <h2>Marcin Koziej</h2>
+    <dl>
+        <dt>Element</dt>
+        <dd>Water!!</dd>
+    </dl>
+
+    <dl>
+        <dt>Eats</td>
+        <dd>Udon</dd>
+    </dl>
+</div>

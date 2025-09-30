@@ -10,8 +10,10 @@ defmodule Portfolio.Worker do
   @impl true
   def init(_init_arg) do
     Popcorn.Wasm.register(@process_name)
-    IO.puts("Hello from WASM!")
-    state = %{pe: 123}
+
+    Portfolio.UI.show()
+
+    state = %{}
     {:ok, state}
   end
 end

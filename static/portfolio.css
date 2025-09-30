@@ -1,0 +1,13 @@
+body {
+    padding: var(--global-space);
+}
+
+.pane {
+    width: calc(var(--global-space) * 80);
+}
+
+header > .close {
+    float: right;
+    margin-right: var(--global-space);
+    cursor: url("./img/cross.png") 8 8, pointer;
+}

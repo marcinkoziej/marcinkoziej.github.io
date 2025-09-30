@@ -1,0 +1,11 @@
+<header>Hello!<span class="close">X</span></header>
+<div>
+    <p>Hi! My name is Marcin and this is my portfolio</p>
+
+    <p>Some more text here</p>
+    <ul>
+    <li>item 1</li>
+    <li>item 2</li>
+    <li>item 3</li>
+    </ul>
+</div>
