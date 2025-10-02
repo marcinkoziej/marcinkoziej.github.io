@@ -1,7 +1,7 @@
 defmodule Portfolio.UI.WindowManager do
   use GenServer
-  alias Popcorn.Wasm
   alias Portfolio.DOM
+  alias Popcorn.Wasm
   import Popcorn.Wasm, only: [is_wasm_message: 1]
   alias Portfolio.UI.{WindowSupervisor, Window}
 
@@ -15,7 +15,8 @@ defmodule Portfolio.UI.WindowManager do
 
   def init(_opts) do
     state = %{
-      position: %{}
+      position: %{},
+      dragging: nil
     }
 
     {:ok, state}
@@ -29,8 +30,23 @@ defmodule Portfolio.UI.WindowManager do
            "action" => "drag",
            "window" => window_id
          }} ->
+          window_id =
+            String.to_existing_atom(window_id)
+
+          state
+          |> raise_window(window_id)
+          |> drag_window(window_id)
+
+        {:wasm_event, :mousemove, ev, %{"window" => window_id}} ->
           window_id = String.to_existing_atom(window_id)
-          state |> raise_window(window_id)
+
+          state = drag_window_position(state, window_id, ev["movementX"], ev["movementY"])
+          Window.move(window_id, state[:position][window_id])
+          state
+
+        {:wasm_event, :mouseup, _, _} ->
+          IO.puts("mouse up")
+          state |> Map.put(:dragging, nil)
       end)
 
     {:noreply, state}
@@ -58,12 +74,45 @@ defmodule Portfolio.UI.WindowManager do
 
     winct = map_size(state[:position])
 
-    new_position = {winct * @cellw, winct * @cellh, max_z}
+    # how many cells to right/down should we place the new window
+    off_by = 4
+    new_position = {off_by * winct * @cellw, off_by * winct * @cellh, max_z}
     state = put_in(state, [:position, id], new_position)
 
     {state, new_position}
   end
 
+  def drag_window_position(
+        %{dragging: dragging, position: position} = state,
+        window_id,
+        by_x,
+        by_y
+      )
+      when not is_nil(dragging) do
+    quantize = fn v, q -> {v - rem(v, q), rem(v, q)} end
+
+    {x, y, z} = position[window_id]
+    {x_ex, y_ex} = dragging[:extra]
+
+    {dx, rem_x} = quantize.(by_x + x_ex, @cellw)
+    {dy, rem_y} = quantize.(by_y + y_ex, @cellh)
+
+    new_position = {max(0, x + dx), max(0, y + dy), z}
+
+    position = Map.put(position, window_id, new_position)
+
+    %{
+      state
+      | position: position,
+        dragging: %{dragging | extra: {rem_x, rem_y}}
+    }
+  end
+
+  def drag_window_position(state, _, _, _) do
+    state
+  end
+
+  @dialyzer {:no_return, setup_drag_handler: 3}
   def setup_drag_handler(node, handle_selector, window_id) do
     header = DOM.query_selector!(node, handle_selector)
 
@@ -86,13 +135,37 @@ defmodule Portfolio.UI.WindowManager do
   end
 
   def raise_window(state, window_id) do
-    state = reorder_positions_to_raise(state, window_id)
+    state =
+      reorder_positions_to_raise(state, window_id)
 
     for {id, wpid} <- WindowSupervisor.list_windows() do
       Window.move(wpid, state[:position][id])
     end
 
     state
+  end
+
+  @dialyzer {:no_return, drag_window: 2}
+  def drag_window(state, window_id) do
+    disable_selecting(true)
+    document = DOM.document()
+
+    dragging =
+      Wasm.register_event_listener(:mousemove,
+        event_keys: [:movementX, :movementY],
+        event_receiver: :window_manager,
+        target_node: document,
+        custom_data: %{window: window_id}
+      )
+
+    mouse_up =
+      Wasm.register_event_listener(:mouseup,
+        event_receiver: :window_manager,
+        target_node: document
+      )
+
+    state
+    |> Map.put(:dragging, %{extra: {0, 0}, listeners: [dragging, mouse_up]})
   end
 
   defp reorder_positions_to_raise(state, window_id) do
@@ -113,5 +186,19 @@ defmodule Portfolio.UI.WindowManager do
       |> Map.put(window_id, {x0, y0, map_size(reordered) + @min_z})
 
     %{state | position: reordered}
+  end
+
+  def disable_selecting(disabled?) do
+    js = """
+    ({args}) => {
+      if (args.disabled) {
+        document.body.classList.add("no-select");
+      } else {
+        document.body.classList.remove("no-select");
+      }
+    }
+    """
+
+    Wasm.run_js!(js, %{disabled: disabled?})
   end
 end

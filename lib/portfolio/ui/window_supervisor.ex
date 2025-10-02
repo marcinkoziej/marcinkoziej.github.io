@@ -33,7 +33,7 @@ defmodule Portfolio.UI.WindowSupervisor do
   end
 
   def list_windows do
-    for %{id: id, child: pid} <- Supervisor.which_children(__MODULE__), into: %{} do
+    for {id, pid, _, _} <- Supervisor.which_children(__MODULE__), into: %{} do
       {id, pid}
     end
   end

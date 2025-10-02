@@ -21,4 +21,13 @@ defmodule Portfolio.DOM do
       error -> raise "Failed to query for #{selector}: #{inspect(error)}"
     end
   end
+
+  def document() do
+    a = Wasm.run_js("() => { return [document]; }")
+
+    case a do
+      {:ok, document} -> document
+      error -> raise "Failed to get document: #{inspect(error)}"
+    end
+  end
 end

@@ -53,21 +53,29 @@ defmodule Portfolio.UI.Window do
 
     id = opts[:id]
 
-    {:ok, el} =
-      Wasm.run_js(make_el_js, %{
+    el =
+      Wasm.run_js!(make_el_js, %{
         id: id,
         container: opts[:container],
         content: opts[:content]
       })
 
     remove_close_handler = setup_close_handler(el, id)
-    remove_drag_handler = WindowManager.setup_drag_handler(el, "header", id)
+
+    remove_drag_handler =
+      WindowManager.setup_drag_handler(el, "header", id)
 
     IO.puts("init done for #{opts[:id]}")
 
-    {:ok, [id: id, el: el, remove: [close: remove_close_handler, drag: remove_drag_handler]]}
+    {:ok,
+     [
+       id: id,
+       el: el,
+       remove: [close: remove_close_handler, drag: remove_drag_handler]
+     ]}
   end
 
+  @dialyzer {:no_return, setup_close_handler: 2}
   def setup_close_handler(node, window_id) do
     close_button = DOM.query_selector!(node, ".close")
 
@@ -110,7 +118,7 @@ defmodule Portfolio.UI.Window do
     }
     """
 
-    Wasm.run_js(move_js, %{el: state[:el], x: x, y: y, z: z})
+    Wasm.run_js!(move_js, %{el: state[:el], x: x, y: y, z: z})
     {:noreply, state}
   end
 
