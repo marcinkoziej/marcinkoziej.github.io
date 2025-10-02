@@ -1,12 +1,12 @@
 defmodule Portfolio.UI do
   alias Popcorn.Wasm
   alias Portfolio.ContentView
-  alias Portfolio.PaneSupervisor
+  alias Portfolio.UI.WindowManager
 
   def show() do
     show_layout()
-    add_pane(id: :welcome, content: ContentView.welcome(%{}))
-    add_pane(id: :second, content: ContentView.about(%{}))
+    add_window(id: :welcome, content: ContentView.welcome(%{}))
+    add_window(id: :second, content: ContentView.about(%{}))
   end
 
   def show_layout do
@@ -23,11 +23,11 @@ defmodule Portfolio.UI do
     )
   end
 
-  def add_pane(pane_opts) do
-    PaneSupervisor.start_pane(pane_opts)
+  def add_window(opts) do
+    WindowManager.add_window(opts)
   end
 
-  def remove_pane(pane_id) do
-    PaneSupervisor.stop_pane(pane_id)
+  def remove_window(window_id) do
+    WindowManager.remove_window(window_id)
   end
 end

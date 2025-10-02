@@ -1,16 +1,18 @@
-defmodule Portfolio.PaneView do
+defmodule Portfolio.UI.Window do
   @moduledoc """
   State is a keyword list with:
   - el - DOM element (TrackedValue)
 
   Arguments:
   - id - the node id value
+  - z_index - the z-index value for the window
   """
 
   use GenServer
   alias Popcorn.Wasm
   import Popcorn.Wasm, only: [is_wasm_message: 1]
   require EEx
+  alias Portfolio.UI.WindowManager
   alias Portfolio.DOM
 
   def start_link(opts) do
@@ -29,7 +31,7 @@ defmodule Portfolio.PaneView do
 
       const el = document.createElement("section");
       el.id = args.id;
-      el.className = "pane terminal-card";
+      el.className = "window terminal-card";
       if (args.content) {
         el.innerHTML = args.content;
       }
@@ -39,7 +41,7 @@ defmodule Portfolio.PaneView do
       parentNode.appendChild(el);
 
       // make draggable
-      window.Portfolio.draggable(el, "header", ".pane");
+      // window.Portfolio.draggable(el, "header", ".window");
 
       // Return the section element as tracked value with a cleanup function
       // that removes it from DOM when the value is GCed on Elixir side.
@@ -49,44 +51,41 @@ defmodule Portfolio.PaneView do
     }
     """
 
-    {:ok, el_ref} =
+    id = opts[:id]
+
+    {:ok, el} =
       Wasm.run_js(make_el_js, %{
-        id: opts[:id],
+        id: id,
         container: opts[:container],
         content: opts[:content]
       })
 
-    cancel_close_handler = setup_close_handler(el_ref, opts[:id])
+    remove_close_handler = setup_close_handler(el, id)
+    remove_drag_handler = WindowManager.setup_drag_handler(el, "header", id)
 
     IO.puts("init done for #{opts[:id]}")
 
-    {:ok, [id: opts[:id], el: el_ref, cancel_handlers: [cancel_close_handler]]}
+    {:ok, [id: id, el: el, remove: [close: remove_close_handler, drag: remove_drag_handler]]}
   end
 
-  def setup_close_handler(node, receiver) do
+  def setup_close_handler(node, window_id) do
     close_button = DOM.query_selector!(node, ".close")
 
-    {:ok, cancel} =
+    {:ok, stop} =
       Wasm.register_event_listener(:click,
         target_node: close_button,
-        event_receiver: receiver,
+        event_receiver: window_id,
         custom_data: %{action: "close"}
       )
 
-    cancel
-  end
-
-  @impl true
-  def handle_info([], _state) do
-    IO.puts("bye")
-    {:stop, :normal}
+    stop
   end
 
   @impl true
   def handle_info(raw_msg, state) when is_wasm_message(raw_msg) do
     Wasm.handle_message!(raw_msg, fn
       {:wasm_event, :click, _, %{"action" => "close"}} ->
-        Portfolio.UI.remove_pane(state[:id])
+        Portfolio.UI.remove_window(state[:id])
         {:noreply, state}
 
       ev ->
@@ -99,6 +98,24 @@ defmodule Portfolio.PaneView do
   def handle_info(other_msg, state) do
     IO.inspect(other_msg, label: "other message")
     {:noreply, state}
+  end
+
+  @impl true
+  def handle_cast({:move, {x, y, z}}, state) do
+    move_js = """
+    ({args}) => {
+      args.el.style.zIndex = args.z;
+      args.el.style.left = args.x + "px";
+      args.el.style.top = args.y + "px";
+    }
+    """
+
+    Wasm.run_js(move_js, %{el: state[:el], x: x, y: y, z: z})
+    {:noreply, state}
+  end
+
+  def move(pid, position) do
+    GenServer.cast(pid, {:move, position})
   end
 
   @impl true

@@ -1,4 +1,4 @@
-defmodule Portfolio.PaneSupervisor do
+defmodule Portfolio.UI.WindowSupervisor do
   use Supervisor
 
   def start_link(init_arg) do
@@ -11,16 +11,16 @@ defmodule Portfolio.PaneSupervisor do
     Supervisor.init(children, strategy: :one_for_one)
   end
 
-  def start_pane(pane_opts) do
+  def start_window(pane_opts) do
     child_spec = %{
       id: pane_opts[:id],
-      start: {Portfolio.PaneView, :start_link, [pane_opts]}
+      start: {Portfolio.UI.Window, :start_link, [pane_opts]}
     }
 
     Supervisor.start_child(__MODULE__, child_spec)
   end
 
-  def stop_pane(id) do
+  def stop_window(id) do
     IO.puts("stopping?")
 
     Supervisor.terminate_child(__MODULE__, id)
@@ -30,5 +30,15 @@ defmodule Portfolio.PaneSupervisor do
     |> IO.inspect(label: "deleting")
 
     IO.puts("eh?")
+  end
+
+  def list_windows do
+    for %{id: id, child: pid} <- Supervisor.which_children(__MODULE__), into: %{} do
+      {id, pid}
+    end
+  end
+
+  def count_windows do
+    Supervisor.count_children(__MODULE__)[:specs]
   end
 end
