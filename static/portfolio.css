@@ -2,8 +2,26 @@ body {
     padding: var(--global-space);
 }
 
+.no-select {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+main {
+    position: relative;
+}
+
 .pane {
+    position: absolute;
     width: calc(var(--global-space) * 80);
+    background-color: white;
+    z-index: 1;
+}
+
+header {
+    cursor: pointer;
 }
 
 header > .close {

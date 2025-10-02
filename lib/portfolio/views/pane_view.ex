@@ -34,9 +34,12 @@ defmodule Portfolio.PaneView do
         el.innerHTML = args.content;
       }
 
-      const parentNode = args.container || document.body;
+      const parentNode = args.container || document.getElementsByTagName("main")[0];
       console.log('parent node is', parentNode);
       parentNode.appendChild(el);
+
+      // make draggable
+      window.Portfolio.draggable(el, "header", ".pane");
 
       // Return the section element as tracked value with a cleanup function
       // that removes it from DOM when the value is GCed on Elixir side.
