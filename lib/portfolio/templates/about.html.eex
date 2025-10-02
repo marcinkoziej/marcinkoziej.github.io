@@ -1,4 +1,4 @@
-<header>About me<span class="close">X</span></header>
+<%= header("About me") %>
 <div>
     <h2>Marcin Koziej</h2>
     <dl>

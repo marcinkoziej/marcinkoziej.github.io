@@ -1,4 +1,4 @@
-<header>Hello!<span class="close">X</span></header>
+<%= header("Hello!") %>
 <div>
     <p>Hi! My name is Marcin and this is my portfolio</p>
 

@@ -4,9 +4,9 @@
     </div>
     <nav class="terminal-menu">
       <ul>
-        <li><a class="menu-item" href="#">Item #1</a></li>
-        <li><a class="menu-item active" href="#">Active Item #2</a></li>
-        <li><a class="menu-item" href="#">Item #3</a></li>
+        <li><a class="menu-item active" href="#">Welcome</a></li>
+        <li><a class="menu-item" href="#">About</a></li>
       </ul>
     </nav>
 </div>
+<main></main>

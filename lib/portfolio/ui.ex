@@ -7,7 +7,6 @@ defmodule Portfolio.UI do
     show_layout()
     add_pane(id: :welcome, content: ContentView.welcome(%{}))
     add_pane(id: :second, content: ContentView.about(%{}))
-    IO.puts("show/")
   end
 
   def show_layout do
