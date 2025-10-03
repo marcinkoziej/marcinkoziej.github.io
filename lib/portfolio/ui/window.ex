@@ -27,8 +27,6 @@ defmodule Portfolio.UI.Window do
   def init(opts) do
     make_el_js = """
     ({args, wasm}) => {
-      console.log("WASM obj", wasm);
-
       const el = document.createElement("section");
       el.id = args.id;
       el.className = "window terminal-card";
@@ -37,7 +35,6 @@ defmodule Portfolio.UI.Window do
       }
 
       const parentNode = args.container || document.getElementsByTagName("main")[0];
-      console.log('parent node is', parentNode);
       parentNode.appendChild(el);
 
       // make draggable
@@ -64,8 +61,6 @@ defmodule Portfolio.UI.Window do
 
     remove_drag_handler =
       WindowManager.setup_drag_handler(el, "header", id)
-
-    IO.puts("init done for #{opts[:id]}")
 
     {:ok,
      [

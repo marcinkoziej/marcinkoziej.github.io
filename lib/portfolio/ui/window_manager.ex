@@ -4,6 +4,7 @@ defmodule Portfolio.UI.WindowManager do
   alias Popcorn.Wasm
   import Popcorn.Wasm, only: [is_wasm_message: 1]
   alias Portfolio.UI.{WindowSupervisor, Window}
+  alias Portfolio.ContentView
 
   @min_z 1
   @cellh 10
@@ -45,7 +46,6 @@ defmodule Portfolio.UI.WindowManager do
           state
 
         {:wasm_event, :mouseup, _, _} ->
-          IO.puts("mouse up")
           state |> Map.put(:dragging, nil)
       end)
 
@@ -63,6 +63,21 @@ defmodule Portfolio.UI.WindowManager do
       _ ->
         {:noreply, state}
     end
+  end
+
+  def handle_cast({:open_or_raise, window_id}, state) do
+    windows = WindowSupervisor.list_windows()
+    IO.inspect(windows, label: "windows")
+
+    state =
+      if Map.has_key?(windows, window_id) do
+        raise_window(state, window_id)
+      else
+        add_window(window_id)
+        state
+      end
+
+    {:noreply, state}
   end
 
   def new_window_position(state, id) do
@@ -126,8 +141,28 @@ defmodule Portfolio.UI.WindowManager do
     stop
   end
 
-  def add_window(opts) do
+  def add_window(opts) when is_list(opts) do
     GenServer.cast(@process_name, {:add_window, opts})
+  end
+
+  def add_window(window_id) when is_atom(window_id) do
+    window_spec =
+      Portfolio.UI.toc()[window_id]
+      |> IO.inspect(label: "Window Spec")
+
+    if window_spec do
+      opts = [id: window_id]
+      {view, assocs} = window_spec[:template]
+
+      opts =
+        if function_exported?(ContentView, view, 1) do
+          Keyword.put(opts, :content, apply(ContentView, view, [assocs]))
+        else
+          raise ArgumentError, message: "View #{view} does not exist"
+        end
+
+      add_window(opts)
+    end
   end
 
   def remove_window(window_id) do
@@ -200,5 +235,9 @@ defmodule Portfolio.UI.WindowManager do
     """
 
     Wasm.run_js!(js, %{disabled: disabled?})
+  end
+
+  def open_or_raise(window_id) do
+    GenServer.cast(@process_name, {:open_or_raise, window_id})
   end
 end

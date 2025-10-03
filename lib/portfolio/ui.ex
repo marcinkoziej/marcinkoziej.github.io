@@ -2,29 +2,25 @@ defmodule Portfolio.UI do
   alias Popcorn.Wasm
   alias Portfolio.ContentView
   alias Portfolio.UI.WindowManager
+  alias Portfolio.DOM
 
   def show() do
     show_layout()
-    add_window(id: :welcome, content: ContentView.welcome(%{}))
-    add_window(id: :second, content: ContentView.about(%{}))
+    # add_window(id: :welcome, content: ContentView.welcome(%{}))
+    # add_window(id: :second, content: ContentView.about(%{}))
+  end
+
+  def toc() do
+    Application.get_env(:portfolio, Portfolio.UI)[:toc]
   end
 
   def show_layout do
-    html = Portfolio.LayoutView.layout(title: "Portfolio")
-
-    Wasm.run_js(
-      """
-      ({args}) => {
-        const body = document.getElementsByTagName("body")[0];
-        body.innerHTML = args.html;
-      }
-      """,
-      %{html: html}
-    )
+    Portfolio.LayoutView.layout(title: "Portfolio")
+    |> DOM.render_to(tag_name: "body")
   end
 
-  def add_window(opts) do
-    WindowManager.add_window(opts)
+  def add_window(id_or_opts) do
+    WindowManager.add_window(id_or_opts)
   end
 
   def remove_window(window_id) do

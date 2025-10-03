@@ -21,19 +21,13 @@ defmodule Portfolio.UI.WindowSupervisor do
   end
 
   def stop_window(id) do
-    IO.puts("stopping?")
-
     Supervisor.terminate_child(__MODULE__, id)
-    |> IO.inspect(label: "terminating")
 
     Supervisor.delete_child(__MODULE__, id)
-    |> IO.inspect(label: "deleting")
-
-    IO.puts("eh?")
   end
 
   def list_windows do
-    for {id, pid, _, _} <- Supervisor.which_children(__MODULE__), into: %{} do
+    for {id, pid, _, _} <- Supervisor.which_children(__MODULE__), pid != :undefined, into: %{} do
       {id, pid}
     end
   end

@@ -23,11 +23,30 @@ defmodule Portfolio.DOM do
   end
 
   def document() do
-    a = Wasm.run_js("() => { return [document]; }")
-
-    case a do
-      {:ok, document} -> document
-      error -> raise "Failed to get document: #{inspect(error)}"
+    try do
+      Wasm.run_js!("() => { return [document]; }")
+    rescue
+      ErlangError -> :"DOM.document"
     end
+  end
+
+  def window() do
+    try do
+      Wasm.run_js!("() => { return [window]; }")
+    rescue
+      ErlangError -> :"DOM.window"
+    end
+  end
+
+  def render_to(html, [{:tag_name, tag_name} | _]) do
+    Wasm.run_js(
+      """
+      ({args}) => {
+        const body = document.getElementsByTagName(args.tag_name)[0];
+        body.innerHTML = args.html;
+      }
+      """,
+      %{html: html, tag_name: tag_name}
+    )
   end
 end

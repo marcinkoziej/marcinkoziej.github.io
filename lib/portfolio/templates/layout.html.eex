@@ -4,8 +4,8 @@
     </div>
     <nav class="terminal-menu">
       <ul>
-        <li><a class="menu-item active" href="#">Welcome</a></li>
-        <li><a class="menu-item" href="#">About</a></li>
+        <li><a class="menu-item active" href="#welcome">Welcome</a></li>
+        <li><a class="menu-item" href="#about">About</a></li>
       </ul>
     </nav>
 </div>
