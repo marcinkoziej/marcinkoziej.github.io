@@ -57,6 +57,7 @@ defmodule Portfolio.UI.WindowManager do
       {:ok, pid} ->
         {state, new_position} = new_window_position(state, opts[:id])
         Window.move(pid, new_position)
+        set_active_window(opts[:id])
 
         {:noreply, state}
 
@@ -87,11 +88,11 @@ defmodule Portfolio.UI.WindowManager do
 
     max_z = Enum.max([@min_z - 1 | zs]) + 1
 
-    winct = map_size(state[:position])
+    winct = WindowSupervisor.count_windows()
 
     # how many cells to right/down should we place the new window
     off_by = 4
-    new_position = {off_by * winct * @cellw, off_by * winct * @cellh, max_z}
+    new_position = {off_by * (winct - 1) * @cellw, off_by * (winct - 1) * @cellh, max_z}
     state = put_in(state, [:position, id], new_position)
 
     {state, new_position}
@@ -161,6 +162,7 @@ defmodule Portfolio.UI.WindowManager do
           raise ArgumentError, message: "View #{view} does not exist"
         end
 
+      IO.inspect(opts, label: "window options to add")
       add_window(opts)
     end
   end
@@ -176,6 +178,8 @@ defmodule Portfolio.UI.WindowManager do
     for {id, wpid} <- WindowSupervisor.list_windows() do
       Window.move(wpid, state[:position][id])
     end
+
+    set_active_window(window_id)
 
     state
   end
@@ -239,5 +243,20 @@ defmodule Portfolio.UI.WindowManager do
 
   def open_or_raise(window_id) do
     GenServer.cast(@process_name, {:open_or_raise, window_id})
+  end
+
+  defp set_active_window(window_id) do
+    js = """
+    ({args}) => {
+      const windows = document.querySelectorAll(".window");
+      windows.forEach((window) => {
+        window.classList.remove("active");
+      })
+      const activeWindow = document.getElementById(args.id);
+      activeWindow.classList.add("active");
+    }
+    """
+
+    Wasm.run_js!(js, %{id: window_id})
   end
 end

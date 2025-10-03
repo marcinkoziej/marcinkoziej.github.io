@@ -1,6 +1,4 @@
 defmodule Portfolio.UI do
-  alias Popcorn.Wasm
-  alias Portfolio.ContentView
   alias Portfolio.UI.WindowManager
   alias Portfolio.DOM
 

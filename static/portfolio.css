@@ -26,8 +26,20 @@ header {
 
 header > .close {
     float: right;
-    margin-right: var(--global-space);
+    padding: 0 var(--global-space);
     cursor:
         url("./img/cross.png") 8 8,
         pointer;
+}
+
+.window.active header {
+    background-color: var(--primary-color);
+}
+
+.window.active {
+    border-color: var(--primary-color);
+}
+
+.window.active {
+    border-color: var(--primary-color);
 }

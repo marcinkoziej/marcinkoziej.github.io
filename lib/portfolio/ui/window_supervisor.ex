@@ -14,7 +14,8 @@ defmodule Portfolio.UI.WindowSupervisor do
   def start_window(pane_opts) do
     child_spec = %{
       id: pane_opts[:id],
-      start: {Portfolio.UI.Window, :start_link, [pane_opts]}
+      start: {Portfolio.UI.Window, :start_link, [pane_opts]},
+      restart: :temporary
     }
 
     Supervisor.start_child(__MODULE__, child_spec)
@@ -22,6 +23,7 @@ defmodule Portfolio.UI.WindowSupervisor do
 
   def stop_window(id) do
     Supervisor.terminate_child(__MODULE__, id)
+    # XXX this seems not to return ???
 
     Supervisor.delete_child(__MODULE__, id)
   end
@@ -33,6 +35,6 @@ defmodule Portfolio.UI.WindowSupervisor do
   end
 
   def count_windows do
-    Supervisor.count_children(__MODULE__)[:specs]
+    Supervisor.count_children(__MODULE__)[:active]
   end
 end
