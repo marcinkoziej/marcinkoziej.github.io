@@ -1,0 +1,43 @@
+<%= header("Breganor - Workforce Management System") %>
+<div>
+    <h3>Freelance Project (March 2023 - December 2023)</h3>
+    <p><strong>Tech Stack:</strong> Elixir, Phoenix, LiveView, PostgreSQL</p>
+
+    <h4>The Challenge</h4>
+    <p>Inherited a legacy Elixir/Phoenix application for workforce management in Norway. The system was incomplete, used outdated patterns, and struggled with reliability issues for small business operations.</p>
+
+    <h4>The Transformation</h4>
+    <ul>
+        <li><strong>Modernized UI Architecture:</strong> Refactored early-Phoenix controller/LEEX based UI into modern LiveView components</li>
+        <li><strong>Enhanced Business Logic:</strong> Implemented new features for order processing and worker assignment workflows</li>
+        <li><strong>Improved System Reliability:</strong> Upgraded incomplete codebase with proper error handling and data validation</li>
+        <li><strong>Streamlined Reporting:</strong> Built comprehensive reporting workflows for business operations</li>
+    </ul>
+
+    <h4>Before vs After</h4>
+    <div class="before-after">
+        <div class="before">
+            <h5>Before:</h5>
+            <ul>
+                <li>Legacy controller-based UI</li>
+                <li>Incomplete feature set</li>
+                <li>Unreliable system behavior</li>
+                <li>Poor user experience</li>
+            </ul>
+        </div>
+        <div class="after">
+            <h5>After:</h5>
+            <ul>
+                <li>Modern LiveView real-time interface</li>
+                <li>Complete order processing pipeline</li>
+                <li>Reliable system operations</li>
+                <li>Streamlined business workflows</li>
+            </ul>
+        </div>
+    </div>
+
+    <h4>Technical Highlights</h4>
+    <p>This project showcased the power of Phoenix LiveView for creating responsive, real-time interfaces while maintaining the robustness of the BEAM ecosystem. The transformation from legacy patterns to modern LiveView architecture resulted in significantly improved user experience and system reliability.</p>
+
+    <p><em>Note: Screenshots and detailed metrics available upon request due to client confidentiality.</em></p>
+</div>

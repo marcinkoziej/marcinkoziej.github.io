@@ -1,0 +1,36 @@
+<%= header("Proca - Digital Campaign Platform") %>
+<div>
+    <h3>Fix The Status Quo (May 2020 - Dec 2022)</h3>
+    <p><strong>Role:</strong> Founder & CTO</p>
+    <p><strong>Tech Stack:</strong> Elixir, Phoenix, GraphQL, PostgreSQL, RabbitMQ, TypeScript, React, AWS</p>
+
+    <h4>Building Democracy with Functional Programming</h4>
+    <p>Founded and led technical development of a SaaS platform for digital campaign management, architecting a scalable supporter action processing system with advanced privacy controls and high reliability.</p>
+
+    <h4>Technical Architecture</h4>
+    <ul>
+        <li><strong>Backend:</strong> Elixir/Phoenix with GraphQL API for scalable, fault-tolerant operations</li>
+        <li><strong>Message Processing:</strong> RabbitMQ for reliable campaign action queuing and processing</li>
+        <li><strong>Frontend:</strong> TypeScript + React + MaterialUI for responsive campaign dashboards</li>
+        <li><strong>Infrastructure:</strong> AWS with Docker, Ansible, and Sentry for production reliability</li>
+        <li><strong>Integrations:</strong> Node.js and Python microservices for CRM data synchronization</li>
+    </ul>
+
+    <h4>Key Achievements</h4>
+    <ul>
+        <li><strong>Scalable Architecture:</strong> Built system capable of processing thousands of supporter actions simultaneously</li>
+        <li><strong>Privacy-First Design:</strong> Implemented advanced privacy controls for GDPR compliance</li>
+        <li><strong>Integration Ecosystem:</strong> Created REST API integrations with multiple customer CRMs</li>
+        <li><strong>Team Leadership:</strong> Recruited and managed a team of 3 engineers in startup environment</li>
+        <li><strong>Full-Stack Ownership:</strong> End-to-end responsibility from server provisioning to user experience</li>
+    </ul>
+
+    <h4>Why Elixir/Phoenix?</h4>
+    <p>The choice of Elixir was strategic - digital campaigns often experience massive traffic spikes during critical moments. The Actor model and OTP supervision trees provided the fault tolerance and scalability needed for mission-critical civic technology.</p>
+
+    <h4>The Real-World Impact</h4>
+    <p>The platform enabled digital campaigns to efficiently manage supporter engagement, process donations, and coordinate actions across multiple channels. While we didn't achieve sustainable product-market fit, the technical architecture successfully handled real campaign loads.</p>
+
+    <h4>Lessons Learned</h4>
+    <p>This experience taught me the importance of balancing technical excellence with market validation. The robust technical foundation we built was solid, but startup success requires more than great code - it needs product-market fit.</p>
+</div>

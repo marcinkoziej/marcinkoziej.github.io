@@ -4,8 +4,24 @@
     </div>
     <nav class="terminal-menu">
       <ul>
-        <li><a class="menu-item active" href="#welcome">Welcome</a></li>
-        <li><a class="menu-item" href="#about">About</a></li>
+        <li><a class="menu-item" href="#about">About me</a></li>
+
+        <li class="projects-menu-item">
+          <a class="menu-item">Featured projects</a>
+          <nav class="projects-submenu">
+            <ul>
+              <li><a href="#breganor">Breganor</a></li>
+              <li><a href="#proca">Proca</a></li>
+              <li><a href="#portfolio">This portfolio</a></li>
+            </ul>
+          </nav>
+        </li>
+
+        <li><a class="menu-item" href="#technical">Technical expertise</a></li>
+
+        <li><a class="menu-item" href="#experience">Experience</a></li>
+        <li><a class="menu-item" href="#contact">Contact</a></li>
+
       </ul>
     </nav>
 </div>

@@ -1,0 +1,69 @@
+<%= header("Technical Expertise") %>
+<div>
+    <h3>Core Technologies</h3>
+
+    <h4>Backend Systems (My Passion)</h4>
+    <ul>
+        <li><strong>Elixir/Phoenix:</strong> Advanced OTP patterns, LiveView, GenServers, Supervisors</li>
+        <li><strong>Python:</strong> Microservices, Django, FastAPI, data pipelines</li>
+        <li><strong>Ruby on Rails:</strong> Full-stack web applications, API development</li>
+        <li><strong>SQL/Databases:</strong> PostgreSQL optimization, MariaDB, Redis caching</li>
+        <li><strong>Message Queues:</strong> RabbitMQ, AWS SQS for reliable async processing</li>
+    </ul>
+
+    <h4>Frontend Development</h4>
+    <ul>
+        <li><strong>JavaScript/TypeScript:</strong> Modern ES6+, type-safe development</li>
+        <li><strong>React:</strong> Component architecture, hooks, state management</li>
+        <li><strong>Phoenix LiveView:</strong> Real-time UIs without JavaScript complexity</li>
+        <li><strong>Web Technologies:</strong> HTML5, CSS3, responsive design</li>
+    </ul>
+
+    <h4>DevOps & Infrastructure</h4>
+    <ul>
+        <li><strong>Containerization:</strong> Docker, container orchestration</li>
+        <li><strong>Cloud Platforms:</strong> AWS services, GCP experience</li>
+        <li><strong>Configuration Management:</strong> Ansible automation</li>
+        <li><strong>CI/CD:</strong> GitHub Actions, GitLab CI, automated deployment pipelines</li>
+        <li><strong>Monitoring:</strong> Sentry error tracking, Metabase analytics</li>
+        <li><strong>Operating Systems:</strong> Linux administration, FreeBSD</li>
+    </ul>
+
+    <h4>AI & Modern Tools</h4>
+    <ul>
+        <li><strong>AI Development:</strong> Claude Code, GitHub Copilot, OpenAI API integration</li>
+        <li><strong>MCP (Model Context Protocol):</strong> Advanced AI tool integration</li>
+        <li><strong>LLAMA:</strong> Local AI model deployment and optimization</li>
+    </ul>
+
+    <h3>Specializations</h3>
+
+    <h4>Distributed Systems</h4>
+    <p>Deep understanding of the Actor model, fault tolerance through supervision trees, and designing systems that gracefully handle failures. Experience with message passing, process isolation, and "let it crash" philosophy.</p>
+
+    <h4>Real-time Applications</h4>
+    <p>Expertise in Phoenix LiveView for building reactive UIs without complex JavaScript state management. WebSocket handling, real-time updates, and maintaining connection state across distributed systems.</p>
+
+    <h4>Scalable Architecture</h4>
+    <p>Designing systems that handle traffic spikes, database optimization, caching strategies, and horizontal scaling patterns. Experience with microservices architecture and API design.</p>
+
+    <h4>Data Engineering</h4>
+    <p>ETL pipeline design, multi-source data integration, automated analytics infrastructure, and BI dashboard development. Experience with large-scale data processing and analysis.</p>
+
+    <h3>Management & Leadership</h3>
+    <ul>
+        <li><strong>Team Leadership:</strong> Managed distributed teams across multiple continents</li>
+        <li><strong>Mentoring:</strong> Guided junior developers and tech-passionate activists</li>
+        <li><strong>Project Management:</strong> Agile planning, feature releases, client onboarding</li>
+        <li><strong>Hiring:</strong> Recruited and onboarded engineering talent</li>
+        <li><strong>Vendor Assessment:</strong> Technology evaluation and procurement decisions</li>
+    </ul>
+
+    <h3>Languages</h3>
+    <ul>
+        <li><strong>English:</strong> Fluent (international team collaboration)</li>
+        <li><strong>German:</strong> Elementary</li>
+        <li><strong>Russian:</strong> Elementary</li>
+        <li><strong>Polish:</strong> Native speaker</li>
+    </ul>
+</div>

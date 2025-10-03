@@ -1,0 +1,51 @@
+<%= header("This Portfolio - Meta Project") %>
+<div>
+    <h3>Elixir in the Browser (2024)</h3>
+    <p><strong>Tech Stack:</strong> Elixir, Popcorn, AtomVM, WASM</p>
+
+    <h4>Why Build a Portfolio in Elixir?</h4>
+    <p>Because normal portfolios are boring, and I wanted to demonstrate that functional programming can run everywhere - including your browser!</p>
+
+    <h4>The Technical Stack</h4>
+    <ul>
+        <li><strong>Elixir Source:</strong> Written in pure Elixir using OTP principles</li>
+        <li><strong>Popcorn Framework:</strong> Compiles Elixir to WebAssembly</li>
+        <li><strong>AtomVM:</strong> Lightweight BEAM VM that runs in WASM</li>
+        <li><strong>Browser Runtime:</strong> No JavaScript frameworks needed!</li>
+    </ul>
+
+    <h4>Architecture Highlights</h4>
+    <ul>
+        <li><strong>Window Management:</strong> Each content section is an Elixir process supervised by OTP</li>
+        <li><strong>State Management:</strong> Pure functional state with GenServer patterns</li>
+        <li><strong>Routing:</strong> URL hash changes trigger window opening/closing events</li>
+        <li><strong>Templates:</strong> EEx templates compiled to WASM</li>
+    </ul>
+
+    <h4>What Makes This Special</h4>
+    <p>This isn't just a gimmick - it's a demonstration of several advanced concepts:</p>
+    <ul>
+        <li><strong>Functional UI:</strong> UI state managed with pure functions and message passing</li>
+        <li><strong>Process Supervision:</strong> Each window is a supervised process that can crash and restart</li>
+        <li><strong>BEAM in Browser:</strong> Bringing Erlang VM capabilities to the frontend</li>
+        <li><strong>Compile-Time Optimization:</strong> Elixir compiled to efficient WASM bytecode</li>
+    </ul>
+
+    <h4>The Nerd Factor</h4>
+    <p>Let's be honest - this is completely over-engineered for a portfolio website. But it demonstrates:</p>
+    <ul>
+        <li>Deep understanding of Elixir/OTP principles</li>
+        <li>Willingness to explore cutting-edge technology</li>
+        <li>Ability to make unconventional technical choices work</li>
+        <li>Passion for functional programming paradigms</li>
+    </ul>
+
+    <h4>Try It Yourself</h4>
+    <p>Open your browser's developer tools and watch the console. You'll see AtomVM booting up and Elixir processes starting. Each window you open creates new supervised processes!</p>
+
+    <h4>Links</h4>
+    <ul>
+        <li><a href="https://atomvm.org/" target="_blank">AtomVM Project</a></li>
+        <li><a href="https://hexdocs.pm/popcorn/readme.html" target="_blank">Popcorn Documentation</a></li>
+    </ul>
+</div>
