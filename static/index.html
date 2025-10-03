@@ -1,11 +1,8 @@
-<!-- index.html -->
+<!doctype html>
 <html>
     <head>
         <script type="module">
-            import * as Portfolio from "./portfolio.js";
             import { Popcorn } from "./wasm/popcorn.js";
-
-            window.Portfolio = Portfolio;
 
             await Popcorn.init({
                 onStdout: console.log,

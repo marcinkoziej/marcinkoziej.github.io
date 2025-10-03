@@ -1,0 +1,69 @@
+<%= header("Professional Experience") %>
+<div>
+    <h3>WeMove Europe (January 2024 - Present)</h3>
+    <p><strong>Senior Developer</strong> - Distributed Team</p>
+    <ul>
+        <li>Designed and implemented scalable analytics infrastructure with automated ETL pipelines for multi-source data integration and interactive BI dashboards using SQL, Python, Metabase, and MariaDB</li>
+        <li>Led technical migration from self-hosted GitLab to GitHub while establishing robust CI/CD workflows and standardized development practices</li>
+        <li>Developed and maintained Python microservices supporting core product functionality and business operations</li>
+        <li>Managed infrastructure operations for 10+ production servers, implementing automated provisioning, security hardening, and backup strategies using Linux and Ansible</li>
+    </ul>
+
+    <h3>Breganor (March 2023 - December 2023)</h3>
+    <p><strong>Freelance Software Engineer</strong> - Norway</p>
+    <ul>
+        <li>Inherited and modernized legacy Elixir/Phoenix application for workforce management, implementing new features for order processing, worker assignment, and reporting workflows</li>
+        <li>Refactored early-Phoenix controller/LEEX based UI into LiveView</li>
+        <li>Enhanced system reliability for small business operations in Norway</li>
+    </ul>
+
+    <h3>Fix The Status Quo (May 2020 - Dec 2022)</h3>
+    <p><strong>Founder & CTO</strong> - Distributed Team</p>
+    <ul>
+        <li>Founded and led technical development of SaaS platform for digital campaign management, architecting scalable supporter action processing system with advanced privacy controls</li>
+        <li>Developed integration ecosystem with multiple data synchronization services to connect customer CRMs via REST APIs, leveraging Node.js, Python, AWS SQS, and Lambda</li>
+        <li>Built responsive customer dashboard as single-page application using TypeScript, React, MaterialUI, and GraphQL</li>
+        <li>Owned end-to-end infrastructure operations including server provisioning, containerization, configuration management, and monitoring</li>
+        <li>Recruited, onboarded, and managed a team of 3 individuals in an early-stage startup environment</li>
+        <li>Managed all business operations from product strategy to customer relationships</li>
+    </ul>
+
+    <h3>Various NGOs (July 2019 - May 2020)</h3>
+    <p><strong>Software Engineering Contractor</strong> - Remote</p>
+    <ul>
+        <li>Provided technical consulting to progressive organizations across multiple continents, delivering solutions for complex migrations and infrastructure optimization</li>
+        <li>Led distributed development team for collaborative online campaigning platform used by 7 international NGOs</li>
+        <li>Mentored junior developers and tech-passionate activists while adapting communication styles to different technical skill levels and cultural backgrounds</li>
+    </ul>
+
+    <h3>Akcja Demokracja (July 2014 - July 2019)</h3>
+    <p><strong>Founder & CTO</strong> - Warsaw, Poland</p>
+    <ul>
+        <li>Co-founded and served as Technology Director, architecting comprehensive online campaigning platform that mobilized 300,000+ Polish citizens for human rights, environmental, and social justice initiatives</li>
+        <li>Part of international network of 12 organizations spanning from USA and Canada to India and New Zealand</li>
+        <li>Designed and implemented individual donor management system that generated 85% of organizational funding (500k EUR annually)</li>
+        <li>Recruited, onboarded, and managed a small engineering team, providing technical mentorship to junior developers</li>
+        <li>Oversaw complete server infrastructure operations, establishing development practices and deployment workflows</li>
+    </ul>
+
+    <h3>Fundacja Nowoczesna Polska (Nov 2011 - Feb 2014)</h3>
+    <p><strong>Software Engineer</strong> - Warsaw, Poland</p>
+    <ul>
+        <li>Developed Libre Readings (https://wolnelektury.pl/) - first Polish public domain e-book library using Python and Django</li>
+    </ul>
+
+    <h3>Freelance (July 2009 - July 2011)</h3>
+    <p><strong>Software Engineer</strong> - Warsaw, Poland</p>
+    <ul>
+        <li>Designed and developed web applications for Polish and Danish companies using Clojure, Java, Spring Framework, Python, and Redis</li>
+    </ul>
+
+    <h3>Education</h3>
+    <h4>Warsaw University of Technology (Oct 2002 - June 2008)</h4>
+    <p><strong>Master of Engineering - MEng, Computer and Information Sciences</strong></p>
+    <p>Master Thesis on Machine Learning: Knowledge representation and reasoning applied to computer intrusion detection</p>
+
+    <h4>University of Warsaw (Oct 2006 - June 2011)</h4>
+    <p><strong>Master of Philosophy</strong></p>
+    <p>Main areas of interest: logics, analytical philosophy and social philosophy</p>
+</div>

@@ -7,5 +7,11 @@ config :logger, level: :error
 config :portfolio, Portfolio.UI,
   toc: [
     welcome: [template: {:welcome, %{}}],
-    about: [template: {:about, %{}}]
+    about: [template: {:about, %{}}],
+    breganor: [template: {:breganor, %{}}],
+    proca: [template: {:proca, %{}}],
+    portfolio: [template: {:portfolio, %{}}],
+    technical: [template: {:technical, %{}}],
+    experience: [template: {:experience, %{}}],
+    contact: [template: {:contact, %{}}]
   ]

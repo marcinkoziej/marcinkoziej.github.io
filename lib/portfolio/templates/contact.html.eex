@@ -1,0 +1,44 @@
+<%= header("Contact") %>
+<div>
+    <h3>Get In Touch</h3>
+
+    <div class="contact-info">
+        <h4>Professional Contact</h4>
+        <ul>
+            <li><strong>Pronouns:</strong> he/him</li>
+        </ul>
+
+        <h4>Online Presence</h4>
+        <ul>
+            <li><strong>GitHub:</strong> <a href="https://github.com/marcinkoziej" target="_blank">marcinkoziej</a></li>
+            <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/marcin-koziej" target="_blank">marcin-koziej</a></li>
+        </ul>
+
+        <h4>Download CV</h4>
+        <p><a href="/MarcinKoziej-CV.pdf" target="_blank">Download PDF Resume</a></p>
+    </div>
+
+    <h3>What I'm Looking For</h3>
+    <p>I'm passionate about bringing my backend expertise, leadership experience, and global perspective to help innovative teams build robust systems that scale their impact.</p>
+
+    <ul>
+        <li><strong>Backend-focused roles</strong> where I can leverage my Elixir/Phoenix expertise</li>
+        <li><strong>Infrastructure and DevOps challenges</strong> involving scalable architecture</li>
+        <li><strong>Remote, collaborative environments</strong> with distributed teams</li>
+        <li><strong>Mission-driven organizations</strong> creating meaningful impact</li>
+        <li><strong>Technical leadership opportunities</strong> with mentoring responsibilities</li>
+    </ul>
+
+    <h3>Fun Facts</h3>
+    <ul>
+        <li>I built this portfolio in Elixir running in your browser via WASM</li>
+        <li>I have degrees in both Computer Science and Philosophy</li>
+        <li>I've worked with teams across 4 continents</li>
+        <li>I prefer backend systems over frontend frameworks</li>
+        <li>I think the Actor model is underutilized in web development</li>
+    </ul>
+
+    <h3>Let's Talk</h3>
+    <p>Whether you're interested in Elixir consulting, technical leadership, or just want to chat about functional programming and distributed systems, I'd love to hear from you!</p>
+
+</div>

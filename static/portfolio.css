@@ -43,3 +43,52 @@ header > .close {
 .window.active {
     border-color: var(--primary-color);
 }
+
+.submenu {
+    display: none;
+}
+
+/* Projects dropdown menu styling */
+.projects-menu-item {
+    position: relative;
+}
+
+.projects-submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    background-color: var(--background-color);
+    border: 1px solid var(--primary-color);
+    padding: var(--global-space);
+    min-width: 150px;
+    z-index: 10;
+}
+
+.projects-menu-item:hover .projects-submenu {
+    display: block;
+}
+
+.projects-submenu ul {
+    display: block;
+    list-style: none;
+    place-items: center start !important;
+    padding: 0;
+    margin: 0;
+}
+
+.projects-submenu li {
+    display: block;
+    margin: 0;
+    padding: calc(var(--global-space) / 2) 0;
+}
+
+.projects-submenu a {
+    display: block;
+    text-decoration: none;
+    color: var(--font-color);
+}
+
+.projects-submenu a:hover {
+    color: var(--primary-color);
+}
