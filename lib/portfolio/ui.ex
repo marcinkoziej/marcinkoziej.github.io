@@ -1,11 +1,10 @@
 defmodule Portfolio.UI do
   alias Portfolio.UI.WindowManager
   alias Portfolio.DOM
+  alias Popcorn.Wasm
 
   def show() do
     show_layout()
-    # add_window(id: :welcome, content: ContentView.welcome(%{}))
-    # add_window(id: :second, content: ContentView.about(%{}))
   end
 
   def toc() do

@@ -68,7 +68,6 @@ defmodule Portfolio.UI.WindowManager do
 
   def handle_cast({:open_or_raise, window_id}, state) do
     windows = WindowSupervisor.list_windows()
-    IO.inspect(windows, label: "windows")
 
     state =
       if Map.has_key?(windows, window_id) do
@@ -149,7 +148,6 @@ defmodule Portfolio.UI.WindowManager do
   def add_window(window_id) when is_atom(window_id) do
     window_spec =
       Portfolio.UI.toc()[window_id]
-      |> IO.inspect(label: "Window Spec")
 
     if window_spec do
       opts = [id: window_id]
@@ -162,7 +160,6 @@ defmodule Portfolio.UI.WindowManager do
           raise ArgumentError, message: "View #{view} does not exist"
         end
 
-      IO.inspect(opts, label: "window options to add")
       add_window(opts)
     end
   end

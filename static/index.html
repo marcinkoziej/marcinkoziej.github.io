@@ -1,19 +1,36 @@
 <!doctype html>
 <html>
     <head>
-        <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin">
-        <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp">
+        <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" />
+        <meta
+            http-equiv="Cross-Origin-Embedder-Policy"
+            content="require-corp"
+        />
         <script type="module">
             import { Popcorn } from "./wasm/popcorn.js";
+            import * as Portfolio from "./portfolio.js";
 
-            await Popcorn.init({
-                onStdout: console.log,
-                onStderr: console.error,
+            window.Portfolio = Portfolio;
+
+            // Assign LogManager to window for global access
+            window.LogManager = Portfolio.LogManager;
+
+            const popcorn = await Popcorn.init({
+                onStdout: (text) => window.LogManager.stdout(text),
+                onStderr: (text) => window.LogManager.stderr(text),
                 debug: true,
             });
+
+            // Store popcorn instance globally for terminal to use
+            window.popcorn = popcorn;
         </script>
         <link rel="stylesheet" href="https://unpkg.com/terminal.css" />
         <link rel="stylesheet" href="./portfolio.css" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/xterm@5/css/xterm.min.css"
+            rel="stylesheet"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/xterm@5/lib/xterm.min.js"></script>
     </head>
     <body></body>
 </html>

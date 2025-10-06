@@ -7,6 +7,7 @@ defmodule Portfolio.Application do
       Portfolio.UI.WindowSupervisor,
       Portfolio.UI.WindowManager,
       Portfolio.UI.Nav,
+      Portfolio.Terminal,
       Portfolio.Worker
     ]
 

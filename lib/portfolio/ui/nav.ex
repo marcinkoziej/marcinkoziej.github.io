@@ -76,13 +76,20 @@ defmodule Portfolio.UI.Nav do
 
   defp current_hash() do
     hash =
-      Wasm.run_js!("""
-      () => {
-        return [window.location.hash];
-      }
-      """)
+      try do
+        Wasm.run_js!(
+          """
+          () => {
+            return [window.location.hash];
+          }
+          """,
+          %{},
+          return: :value
+        )
+      rescue
+        _error -> ""
+      end
 
-    [hash] = Wasm.get_tracked_values!([hash])
     String.trim_leading(hash, "#")
   end
 end

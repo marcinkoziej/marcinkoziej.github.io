@@ -25,3 +25,16 @@ It mimicks the TUI windows known from terminal emulators.
 - List of all windows and their matching content is specified in the toc in config/config.exs
 - There is an url handler that opens a window when url has changes to `#somewindow`. This will open a window configured in the toc. As a convention, the template file will be `somewindow.html.eex` and a method will be generated in `Portfolio.ContentView` to render it.
 - Each window has a header which is part of the template.
+
+# AtomVM limitations
+
+AtomVM does not implement timer module. This means:
+
+1. Process.send_after does not work!
+2. Process.sleep does not work!
+3. Logger does not work, as the default format will prefix logs with time, and I could not find way to change it.
+4. Some OTP modules will use Logger, for example DynamicSupervisor, and it cannot be used. This is why I implement Supervisor module directly in WindowSupervisor.
+
+# Testing and debugging
+
+Run the server using `mix dev` and use `puppeteer` mcp to browse the site (it will run at http://localhost:4000)

@@ -25,4 +25,7 @@
       </ul>
     </nav>
 </div>
-<main></main>
+<main>
+  <div class="terminal"></div>
+
+</main>

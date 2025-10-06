@@ -92,3 +92,26 @@ header > .close {
 .projects-submenu a:hover {
     color: var(--primary-color);
 }
+
+/* Terminal styling - background element */
+.terminal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    opacity: 0.8;
+    pointer-events: auto;
+}
+
+.terminal .xterm {
+    padding: var(--global-space);
+}
+
+/* Ensure windows can still be interacted with */
+.window {
+    pointer-events: auto;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(2px);
+}
