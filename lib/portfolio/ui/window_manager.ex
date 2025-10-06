@@ -186,6 +186,7 @@ defmodule Portfolio.UI.WindowManager do
   def remove_window(window_id) do
     Nav.set_hash()
     WindowSupervisor.stop_window(window_id)
+    :stopped
   end
 
   def raise_window_on_desktop(state, window_id, _mobile = true) do

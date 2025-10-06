@@ -75,7 +75,6 @@ export async function initializeTerminal(terminalElement) {
     } catch (error) {
       displayOutput(error.toString(), { isError: true });
     }
-    console.log("back");
   });
 
   return term;

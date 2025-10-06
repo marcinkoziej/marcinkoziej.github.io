@@ -23,8 +23,7 @@ defmodule Portfolio.UI.WindowSupervisor do
 
   def stop_window(id) do
     Supervisor.terminate_child(__MODULE__, id)
-    # XXX this seems not to return ???
-
+    # XXX this seems not to return an expected value...
     Supervisor.delete_child(__MODULE__, id)
   end
 

@@ -109,6 +109,10 @@ header > .close {
     padding: var(--global-space);
 }
 
+.terminal .xterm-viewport {
+    overflow-y: hidden !important;
+}
+
 /* Ensure windows can still be interacted with */
 .window {
     pointer-events: auto;

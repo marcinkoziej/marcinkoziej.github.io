@@ -2,6 +2,9 @@ defmodule Portfolio.Terminal do
   use GenServer
   alias Popcorn.Wasm
 
+  # make sure it's compiled
+  require Portfolio.Terminal.Helpers
+
   def start_link(args) do
     GenServer.start_link(__MODULE__, args, name: __MODULE__)
   end
@@ -14,10 +17,13 @@ defmodule Portfolio.Terminal do
 
     ExTTY.start_link(
       handler: self(),
-      shell_opts: [dot_iex_path: ""],
+      shell_opts: [dot_iex_path: "", colors: [syntax_colors: false]],
       name: @tty_name,
       type: :elixir
     )
+
+    IO.puts("Aligning terminal....")
+    send_input("import Portfolio.Terminal.Helpers\n")
 
     initialize_term_gui()
 
