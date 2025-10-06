@@ -69,16 +69,10 @@ defmodule Portfolio.UI.WindowManager do
   def handle_cast({:add_window, opts}, state) do
     case WindowSupervisor.start_window(opts) do
       {:ok, pid} ->
-        if state[:mobile] do
-          # Skip positioning on mobile - let windows use natural flow
-          set_active_window(opts[:id])
-          {:noreply, state}
-        else
-          {state, new_position} = new_window_position(state, opts[:id])
-          Window.move(pid, new_position)
-          set_active_window(opts[:id])
-          {:noreply, state}
-        end
+        {state, new_position} = new_window_position(state, opts[:id])
+        Window.move(pid, new_position)
+        set_active_window(opts[:id])
+        {:noreply, state}
 
       _ ->
         {:noreply, state}
@@ -108,11 +102,16 @@ defmodule Portfolio.UI.WindowManager do
 
     winct = WindowSupervisor.count_windows()
 
-    # how many cells to right/down should we place the new window
-    off_by = 4
-    new_position = {off_by * (winct - 1) * @cellw, off_by * (winct - 1) * @cellh, max_z}
-    state = put_in(state, [:position, id], new_position)
+    new_position =
+      if state[:mobile] do
+        {0, 0, max_z}
+      else
+        # how many cells to right/down should we place the new window
+        off_by = 4
+        {off_by * (winct - 1) * @cellw, off_by * (winct - 1) * @cellh, max_z}
+      end
 
+    state = put_in(state, [:position, id], new_position)
     {state, new_position}
   end
 
