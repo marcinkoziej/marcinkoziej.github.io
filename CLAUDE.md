@@ -15,7 +15,7 @@ Popcorn documentation: https://hexdocs.pm/popcorn/readme.html
 
 # Architecture
 
-## Window
+## Windows
 
 A window is a boxed piece of content which can be opened and closed.
 It mimicks the TUI windows known from terminal emulators.
@@ -25,6 +25,15 @@ It mimicks the TUI windows known from terminal emulators.
 - List of all windows and their matching content is specified in the toc in config/config.exs
 - There is an url handler that opens a window when url has changes to `#somewindow`. This will open a window configured in the toc. As a convention, the template file will be `somewindow.html.eex` and a method will be generated in `Portfolio.ContentView` to render it.
 - Each window has a header which is part of the template.
+
+## Terminal
+
+The `Portfolio.Terminal` runs an `ExTTY` process and passes keystrokes and shell output to frontend, where it is rendered in Xterm JS. Implementation mostly copied from one of Popcorn examples.
+
+## Web assets
+
+- Style provided by Terminal CSS, documentation: https://terminalcss.xyz/
+- X term provided by project Xterm JS, documentation: https://xtermjs.org/
 
 # AtomVM limitations
 
