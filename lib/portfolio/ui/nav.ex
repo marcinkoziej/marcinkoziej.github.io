@@ -92,4 +92,18 @@ defmodule Portfolio.UI.Nav do
 
     String.trim_leading(hash, "#")
   end
+
+  def set_hash(hash \\ "") do
+    js = """
+    ({args}) => {
+      window.location.hash = args.hash;
+    }
+    """
+
+    try do
+      Wasm.run_js!(js, %{hash: hash})
+    rescue
+      _error -> :ok
+    end
+  end
 end

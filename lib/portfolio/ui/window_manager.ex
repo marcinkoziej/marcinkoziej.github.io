@@ -3,7 +3,7 @@ defmodule Portfolio.UI.WindowManager do
   alias Portfolio.DOM
   alias Popcorn.Wasm
   import Popcorn.Wasm, only: [is_wasm_message: 1]
-  alias Portfolio.UI.{WindowSupervisor, Window}
+  alias Portfolio.UI.{WindowSupervisor, Window, Nav}
   alias Portfolio.ContentView
 
   @min_z 1
@@ -184,6 +184,7 @@ defmodule Portfolio.UI.WindowManager do
   end
 
   def remove_window(window_id) do
+    Nav.set_hash()
     WindowSupervisor.stop_window(window_id)
   end
 
@@ -277,6 +278,8 @@ defmodule Portfolio.UI.WindowManager do
   end
 
   defp set_active_window(window_id) do
+    Nav.set_hash(window_id)
+
     js = """
     ({args}) => {
       const windows = document.querySelectorAll(".window");
