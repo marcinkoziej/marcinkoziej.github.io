@@ -13,8 +13,6 @@ defmodule Portfolio.Worker do
   def init(_init_arg) do
     Popcorn.Wasm.register(@process_name)
 
-    Portfolio.UI.show()
-
     state = %{}
     {:ok, state}
   end
