@@ -1,43 +1,40 @@
 <%= header("Breganor - Workforce Management System") %>
 <div>
-    <h3>Freelance Project (March 2023 - December 2023)</h3>
+    <h3>Freelance Project</h3>
     <p><strong>Tech Stack:</strong> Elixir, Phoenix, LiveView, PostgreSQL</p>
 
     <h4>The Challenge</h4>
-    <p>Inherited a legacy Elixir/Phoenix application for workforce management in Norway. The system was incomplete, used outdated patterns, and struggled with reliability issues for small business operations.</p>
+    <p>I inherited a workforce management application that was stuck in the early days of Phoenix. The codebase was a patchwork of pre-LiveView patterns - old-school controller-based views, EEX/LEEX templates scattered throughout, and JavaScript sprinkled everywhere to make basic interactions work. Many views were left with bare-bones implementations using basic Bootstrap styling, creating an inconsistent and dated user experience.</p>
 
-    <h4>The Transformation</h4>
+    <p>The Norwegian business using this system was struggling with incomplete workflows, unreliable operations, and a UI that felt more like a prototype than a production application. They needed someone to bring it into the modern Phoenix era.</p>
+
+    <h4>The Transformation Story</h4>
+    <p>This became a fascinating case study in Phoenix evolution. I systematically modernized the entire application from legacy patterns to modern LiveView architecture:</p>
+
     <ul>
-        <li><strong>Modernized UI Architecture:</strong> Refactored early-Phoenix controller/LEEX based UI into modern LiveView components</li>
-        <li><strong>Enhanced Business Logic:</strong> Implemented new features for order processing and worker assignment workflows</li>
-        <li><strong>Improved System Reliability:</strong> Upgraded incomplete codebase with proper error handling and data validation</li>
-        <li><strong>Streamlined Reporting:</strong> Built comprehensive reporting workflows for business operations</li>
+        <li><strong>Eliminated JavaScript Dependencies:</strong> Replaced scattered jQuery and vanilla JS with Phoenix LiveView's real-time reactivity</li>
+        <li><strong>Converted Legacy Templates:</strong> Migrated old EEX/LEEX views to modern LiveView components with proper state management</li>
+        <li><strong>Implemented Design System:</strong> Replaced basic Bootstrap styling with a cohesive design language specified in Figma</li>
+        <li><strong>Enhanced Business Logic:</strong> Built complete order processing and worker assignment workflows that were previously half-implemented</li>
+        <li><strong>Improved Reliability:</strong> Added proper error handling, data validation, and real-time updates throughout the system</li>
     </ul>
 
     <h4>Before vs After</h4>
-    <div class="before-after">
-        <div class="before">
-            <h5>Before:</h5>
-            <ul>
-                <li>Legacy controller-based UI</li>
-                <li>Incomplete feature set</li>
-                <li>Unreliable system behavior</li>
-                <li>Poor user experience</li>
-            </ul>
+    <div class="screenshot-comparison">
+        <div class="before-shot">
+            <h5>Before: Legacy Phoenix with Basic Bootstrap</h5>
+            <img src="/img/breganor-before.png" alt="Breganor before modernization - basic form with simple styling" />
+            <p>Old controller-based forms with minimal styling and poor UX</p>
         </div>
-        <div class="after">
-            <h5>After:</h5>
-            <ul>
-                <li>Modern LiveView real-time interface</li>
-                <li>Complete order processing pipeline</li>
-                <li>Reliable system operations</li>
-                <li>Streamlined business workflows</li>
-            </ul>
+        <div class="after-shot">
+            <h5>After: Modern LiveView with Custom Design</h5>
+            <img src="/img/breganor-after.png" alt="Breganor after modernization - polished interface with calendar scheduling" />
+            <p>Real-time LiveView interface with proper design system and intuitive workflows</p>
         </div>
     </div>
 
-    <h4>Technical Highlights</h4>
-    <p>This project showcased the power of Phoenix LiveView for creating responsive, real-time interfaces while maintaining the robustness of the BEAM ecosystem. The transformation from legacy patterns to modern LiveView architecture resulted in significantly improved user experience and system reliability.</p>
+    <h4>Technical Impact</h4>
+    <p>The transformation showcased Phoenix LiveView's power to eliminate JavaScript complexity while delivering superior user experience. By moving from controller-based patterns to LiveView components, the application gained real-time reactivity, better state management, and significantly improved reliability. The client went from having a barely-functional prototype to a polished workforce management system that could scale with their business.</p>
 
-    <p><em>Note: Screenshots and detailed metrics available upon request due to client confidentiality.</em></p>
+    <p>This project reinforced my belief that the best modernization isn't just about updating dependencies - it's about thoughtfully applying new architectural patterns to solve real business problems.</p>
 </div>

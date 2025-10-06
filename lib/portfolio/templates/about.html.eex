@@ -1,17 +1,12 @@
 <%= header("About me") %>
 <div>
     <h2>Marcin Koziej</h2>
-    <h3>Full-Stack Engineer · Startup Founder · Problem Solver</h3>
 
-    <p>Seasoned engineering leader with 15 years of full-stack development and infrastructure expertise, specializing in building scalable products that create meaningful impact. I've founded startups, led distributed teams across multiple continents, and architected systems serving hundreds of thousands of users for mission-driven organizations.</p>
+    <p>Hi! I'm a full-stack engineer and founder with a particular love for backend systems and infrastructure. Over the past 15 years, I've been drawn to building platforms that enable others to create meaningful change - whether that's campaigning tools for activists or scalable systems for mission-driven organizations.</p>
 
-    <p>My passion lies in backend systems and infrastructure architecture - designing robust APIs, data pipelines, and scalable server architectures that can handle real-world complexity. While I'm capable across the full stack including React frontends, my expertise and enthusiasm center on backend technologies like Elixir/Phoenix, Python microservices, and database optimization.</p>
+    <p>What really drives me is what I call "systemic infrastructure building" - identifying complex problems where different systems intersect, then creating the technical platforms that let domain experts address these challenges at scale. I get energized by pattern recognition, seeing the deep structures others might miss, and architecting solutions that amplify smart people's impact.</p>
 
-    <p>I thrive in remote, collaborative environments and have successfully mentored diverse teams while maintaining hands-on technical contribution. My experience spans the complete product lifecycle from initial concept through scaling to widespread adoption.</p>
-
-    <h4>Current Role</h4>
-    <p><strong>WeMove Europe</strong> - Senior Developer (January 2024 - Present)<br>
-    Designing scalable analytics infrastructure, managing CI/CD workflows, and maintaining high-availability production systems for a distributed team.</p>
+    <p>My technical passion centers on backend technologies like Elixir/Phoenix, Python microservices, and database optimization. While I'm capable across the full stack, I find the most satisfaction in designing robust APIs, data pipelines, and server architectures that handle real-world complexity. I've led distributed teams across multiple continents and built systems serving hundreds of thousands of users.</p>
 
     <h4>Why This Portfolio is Special</h4>
     <p>This portfolio itself is built with Elixir compiled to WASM running on AtomVM - because functional programming should run everywhere, including your browser!</p>
