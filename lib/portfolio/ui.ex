@@ -1,7 +1,6 @@
 defmodule Portfolio.UI do
   alias Portfolio.UI.WindowManager
   alias Portfolio.DOM
-  alias Popcorn.Wasm
 
   def show() do
     show_layout()

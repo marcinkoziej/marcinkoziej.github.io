@@ -10,14 +10,23 @@ defmodule Portfolio.UI.WindowManager do
   @cellh 10
   @cellw 10
   @process_name :window_manager
+  @mobile_breakpoint 768
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, [], name: @process_name)
   end
 
   def init(_opts) do
+    # Detect initial mobile state
+    is_mobile = detect_mobile()
+
+    # Set up resize listener to track mobile state changes
+    resize_listener = setup_resize_listener()
+
     state = %{
       position: %{},
-      dragging: nil
+      dragging: nil,
+      mobile: is_mobile,
+      listeners: [resize_listener]
     }
 
     {:ok, state}
@@ -35,8 +44,8 @@ defmodule Portfolio.UI.WindowManager do
             String.to_existing_atom(window_id)
 
           state
-          |> raise_window(window_id)
-          |> drag_window(window_id)
+          |> raise_window_on_desktop(window_id, state[:mobile])
+          |> drag_window_on_desktop(window_id, state[:mobile])
 
         {:wasm_event, :mousemove, ev, %{"window" => window_id}} ->
           window_id = String.to_existing_atom(window_id)
@@ -47,6 +56,11 @@ defmodule Portfolio.UI.WindowManager do
 
         {:wasm_event, :mouseup, _, _} ->
           state |> Map.put(:dragging, nil)
+
+        {:wasm_event, :resize, _, _} ->
+          # Handle viewport size changes
+          is_mobile = detect_mobile()
+          state |> handle_resize(is_mobile)
       end)
 
     {:noreply, state}
@@ -55,11 +69,16 @@ defmodule Portfolio.UI.WindowManager do
   def handle_cast({:add_window, opts}, state) do
     case WindowSupervisor.start_window(opts) do
       {:ok, pid} ->
-        {state, new_position} = new_window_position(state, opts[:id])
-        Window.move(pid, new_position)
-        set_active_window(opts[:id])
-
-        {:noreply, state}
+        if state[:mobile] do
+          # Skip positioning on mobile - let windows use natural flow
+          set_active_window(opts[:id])
+          {:noreply, state}
+        else
+          {state, new_position} = new_window_position(state, opts[:id])
+          Window.move(pid, new_position)
+          set_active_window(opts[:id])
+          {:noreply, state}
+        end
 
       _ ->
         {:noreply, state}
@@ -168,6 +187,15 @@ defmodule Portfolio.UI.WindowManager do
     WindowSupervisor.stop_window(window_id)
   end
 
+  def raise_window_on_desktop(state, window_id, _mobile = true) do
+    set_active_window(window_id)
+    state
+  end
+
+  def raise_window_on_desktop(state, window_id, _mobile = false) do
+    state |> raise_window(window_id)
+  end
+
   def raise_window(state, window_id) do
     state =
       reorder_positions_to_raise(state, window_id)
@@ -179,6 +207,12 @@ defmodule Portfolio.UI.WindowManager do
     set_active_window(window_id)
 
     state
+  end
+
+  def drag_window_on_desktop(state, _window_id, true), do: state
+
+  def drag_window_on_desktop(state, window_id, false) do
+    state |> drag_window(window_id)
   end
 
   @dialyzer {:no_return, drag_window: 2}
@@ -255,5 +289,71 @@ defmodule Portfolio.UI.WindowManager do
     """
 
     Wasm.run_js!(js, %{id: window_id})
+  end
+
+  @dialyzer {:no_return, detect_mobile: 0}
+  defp detect_mobile() do
+    js = """
+    () => {
+      return [window.innerWidth <= #{@mobile_breakpoint}];
+    }
+    """
+
+    try do
+      Wasm.run_js!(js, %{}, return: :value)
+    rescue
+      _ -> false
+    end
+  end
+
+  @dialyzer {:no_return, setup_resize_listener: 0}
+  defp setup_resize_listener() do
+    window = DOM.window()
+
+    try do
+      {:ok, listener} =
+        Wasm.register_event_listener(:resize, target_node: window, event_receiver: @process_name)
+
+      listener
+    rescue
+      _ -> :mock_listener
+    end
+  end
+
+  def handle_resize(state, is_mobile) do
+    # GenServer.cast(@process_name, {:viewport_changed, is_mobile})
+
+    # If switching from mobile to desktop, we might want to reposition windows
+    # If switching from desktop to mobile, windows will naturally stack
+    if not state[:mobile] and is_mobile do
+      # Switching to mobile - remove all positioning
+      for {_id, wpid} <- WindowSupervisor.list_windows() do
+        # Reset window positions by removing inline styles
+        reset_window_positioning(wpid)
+      end
+    end
+
+    %{state | mobile: is_mobile}
+  end
+
+  @dialyzer {:no_return, reset_window_positioning: 1}
+  defp reset_window_positioning(window_pid) do
+    js = """
+    ({args}) => {
+      const el = args.el;
+      if (el && el.style) {
+        el.style.position = '';
+        el.style.left = '';
+        el.style.top = '';
+        el.style.zIndex = '';
+      }
+    }
+    """
+
+    state = :sys.get_state(window_pid)
+
+    if state[:el] do
+      Wasm.run_js!(js, %{el: state[:el]})
+    end
   end
 end

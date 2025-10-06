@@ -92,7 +92,7 @@ function displayOutput(text, { isError }) {
 
 function displayWelcomeMessage() {
   const welcomeText = `
-\x1b[1;36m╔══════════════════════════════════════════════════════════════════════════════╗
+\x1b[1;35m╔══════════════════════════════════════════════════════════════════════════════╗
 ║                          Welcome to Marcin's Portfolio                       ║
 ║                                                                              ║
 ║          Portfolio running on AtomVM + Popcorn in your browser!              ║
