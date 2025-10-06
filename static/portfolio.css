@@ -205,7 +205,6 @@ header > .close {
 
     /* Adjust terminal for mobile */
     .terminal {
-        position: relative !important;
         height: 40vh !important;
         order: 1;
         margin-top: var(--global-space);

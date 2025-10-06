@@ -1,7 +1,7 @@
 defmodule Portfolio.Terminal.Helpers do
   def help do
     """
-    Beside all Elixir can give, some commands available:
+    Beside all Elixir can give, these commands are available:
 
     help - this message
     windows - list open windows

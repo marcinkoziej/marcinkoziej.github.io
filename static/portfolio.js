@@ -90,7 +90,31 @@ function displayOutput(text, { isError }) {
 }
 
 function displayWelcomeMessage() {
-  const welcomeText = `
+  // Check if we're on mobile (simple check based on screen width)
+  const isMobile = window.innerWidth < 768;
+
+  const welcomeText = isMobile
+    ? `
+\x1b[1;35m╔══════════════════════════════════════╗
+║     Welcome to Marcin's Portfolio    ║
+║                                      ║
+║  Portfolio running on AtomVM +       ║
+║  Popcorn in your browser!            ║
+║                                      ║
+║  This terminal is connected to a     ║
+║  live Elixir BEAM instance.          ║
+║                                      ║
+║  Try typing some Elixir commands     ║
+║  or explore the portfolio windows    ║
+║  above.                              ║
+║                                      ║
+╚══════════════════════════════════════╝\x1b[0m
+
+\x1b[1;36mElixir Interactive Shell (Portfolio Edition)\x1b[0m
+\x1b[33mType help() for available commands.\x1b[0m
+
+iex(1)> `
+    : `
 \x1b[1;35m╔══════════════════════════════════════════════════════════════════════════════╗
 ║                          Welcome to Marcin's Portfolio                       ║
 ║                                                                              ║
