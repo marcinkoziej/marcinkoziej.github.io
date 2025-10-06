@@ -7,7 +7,7 @@
         <li><a class="menu-item" href="#about">About me</a></li>
 
         <li class="projects-menu-item">
-          <a class="menu-item">Featured projects</a>
+          <a class="menu-item" href="#">Featured projects</a>
           <nav class="projects-submenu">
             <ul>
               <li><a href="#breganor">Breganor</a></li>

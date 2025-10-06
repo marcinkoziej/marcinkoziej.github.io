@@ -63,9 +63,14 @@ header > .close {
     padding: var(--global-space);
     min-width: 150px;
     z-index: 10;
+    pointer-events: auto;
 }
 
-.projects-menu-item:hover .projects-submenu {
+/* Support for touch */
+.projects-menu-item:hover .projects-submenu,
+.projects-menu-item:focus .projects-submenu,
+.projects-menu-item:active .projects-submenu,
+.projects-menu-item:focus-within .projects-submenu {
     display: block;
 }
 
@@ -213,10 +218,10 @@ header > .close {
 
     /* Projects submenu adjustments for mobile */
     .projects-submenu {
-        position: absolute !important;
-        display: none !important;
-        top: 100% !important;
-        left: 0 !important;
+        position: absolute;
+        display: none;
+        top: 100%;
+        left: 0;
         margin-top: 0;
         width: auto;
         min-width: 150px;
@@ -224,12 +229,7 @@ header > .close {
         z-index: 100;
     }
 
-    /* Make submenu toggleable on mobile with touch */
-    .projects-menu-item:hover .projects-submenu,
-    .projects-menu-item:focus-within .projects-submenu,
-    .projects-menu-item:active .projects-submenu {
-        display: block !important;
-    }
+    /* Submenu styling handled by main rule above */
 
     /* Improve touch targets for mobile submenu */
     .projects-menu-item {
