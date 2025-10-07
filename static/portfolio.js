@@ -22,6 +22,29 @@ export async function initializeTerminal(terminalElement) {
     return;
   }
 
+  // Calculate responsive terminal dimensions
+  const isMobile = window.innerWidth < 768;
+  const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1024;
+
+  let cols, rows, fontSize;
+
+  if (isMobile) {
+    // Mobile: smaller terminal to fit screen
+    cols = Math.floor(window.innerWidth / 8) - 4; // Rough char width calculation with padding
+    rows = 20;
+    fontSize = 12;
+  } else if (isTablet) {
+    // Tablet: medium size
+    cols = Math.floor(window.innerWidth / 10) - 2;
+    rows = 25;
+    fontSize = 13;
+  } else {
+    // Desktop: full size
+    cols = 120;
+    rows = 30;
+    fontSize = 14;
+  }
+
   // Initialize xterm with light theme
   const term = new Terminal({
     theme: {
@@ -30,9 +53,9 @@ export async function initializeTerminal(terminalElement) {
       cursor: "#000000",
       selection: "#d4d4d4",
     },
-    rows: 30,
-    cols: 120,
-    fontSize: 14,
+    rows: rows,
+    cols: cols,
+    fontSize: fontSize,
     fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
     convertEol: true, // auto replace \n -> \r\n
   });
