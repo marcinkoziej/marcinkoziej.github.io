@@ -28,7 +28,7 @@ defmodule Portfolio.UI.Window do
     make_el_js = """
     ({args, wasm}) => {
       const el = document.createElement("section");
-      el.id = args.id;
+      el.dataset.id = args.id;
       el.className = "window terminal-card";
       if (args.content) {
         el.innerHTML = args.content;
@@ -60,7 +60,7 @@ defmodule Portfolio.UI.Window do
     remove_close_handler = setup_close_handler(el, id)
 
     remove_drag_handler =
-      WindowManager.setup_drag_handler(el, "header", id)
+      WindowManager.setup_drag_handler(el, "header .title", id)
 
     {:ok,
      [
@@ -117,8 +117,42 @@ defmodule Portfolio.UI.Window do
     {:noreply, state}
   end
 
+  @impl true
+  def handle_cast({:shuffle_to_top}, state) do
+    shuffle_js = """
+    ({args}) => {
+      const parent = args.el.parentNode;
+      parent.removeChild(args.el);
+      parent.appendChild(args.el);  // we sort the last element to top using FLEX..
+    }
+    """
+
+    Wasm.run_js!(shuffle_js, %{el: state[:el]})
+    {:noreply, state}
+  end
+
+  @impl true
+  def handle_cast({:set_active, active?}, state) do
+    active_js = """
+    ({args}) => {
+      args.el.classList.toggle("active", args.active);
+    }
+    """
+
+    Wasm.run_js!(active_js, %{el: state[:el], active: active?})
+    {:noreply, state}
+  end
+
   def move(pid, position) do
     GenServer.cast(pid, {:move, position})
+  end
+
+  def set_active(pid, active?) do
+    GenServer.cast(pid, {:set_active, active?})
+  end
+
+  def shuffle_to_top(pid) do
+    GenServer.cast(pid, {:shuffle_to_top})
   end
 
   @impl true

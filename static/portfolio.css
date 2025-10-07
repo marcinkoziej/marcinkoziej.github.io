@@ -21,11 +21,18 @@ main {
 }
 
 header {
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+    cursor: move;
+}
+
+header > .title {
+    flex: 1;
+    text-align: center;
+    cursor: move;
 }
 
 header > .close {
-    float: right;
     padding: 0 var(--global-space);
     cursor:
         url("./img/cross.png") 8 8,

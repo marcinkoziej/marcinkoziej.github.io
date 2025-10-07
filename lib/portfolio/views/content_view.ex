@@ -21,7 +21,7 @@ defmodule Portfolio.ContentView do
 
   def header(text) do
     """
-    <header><b>#{text}</b><span class="close">&times;</span></header>
+    <header><span class="title"><b>#{text}</b></span><span class="close">&times;</span></header>
     """
   end
 end

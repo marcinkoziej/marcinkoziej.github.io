@@ -44,8 +44,8 @@ defmodule Portfolio.UI.WindowManager do
             String.to_existing_atom(window_id)
 
           state
-          |> raise_window_on_desktop(window_id, state[:mobile])
-          |> drag_window_on_desktop(window_id, state[:mobile])
+          |> raise_window(window_id)
+          |> drag_window_on_desktop(window_id)
 
         {:wasm_event, :mousemove, ev, %{"window" => window_id}} ->
           window_id = String.to_existing_atom(window_id)
@@ -188,16 +188,17 @@ defmodule Portfolio.UI.WindowManager do
     :stopped
   end
 
-  def raise_window_on_desktop(state, window_id, _mobile = true) do
+  def raise_window(state = %{mobile: true}, window_id) do
+    shuffle_window_to_top(window_id)
     set_active_window(window_id)
     state
   end
 
-  def raise_window_on_desktop(state, window_id, _mobile = false) do
-    state |> raise_window(window_id)
+  def raise_window(state = %{mobile: false}, window_id) do
+    state |> raise_window_on_desktop(window_id)
   end
 
-  def raise_window(state, window_id) do
+  def raise_window_on_desktop(state, window_id) do
     state =
       reorder_positions_to_raise(state, window_id)
 
@@ -210,9 +211,16 @@ defmodule Portfolio.UI.WindowManager do
     state
   end
 
-  def drag_window_on_desktop(state, _window_id, true), do: state
+  def shuffle_window_to_top(window_id) do
+    case WindowSupervisor.list_windows()[window_id] do
+      nil -> :ok
+      pid when is_pid(pid) -> Window.shuffle_to_top(pid)
+    end
+  end
 
-  def drag_window_on_desktop(state, window_id, false) do
+  def drag_window_on_desktop(state = %{mobile: true}, _window_id), do: state
+
+  def drag_window_on_desktop(state = %{mobile: false}, window_id) do
     state |> drag_window(window_id)
   end
 
@@ -280,18 +288,10 @@ defmodule Portfolio.UI.WindowManager do
   defp set_active_window(window_id) do
     Nav.set_hash(window_id)
 
-    js = """
-    ({args}) => {
-      const windows = document.querySelectorAll(".window");
-      windows.forEach((window) => {
-        window.classList.remove("active");
-      })
-      const activeWindow = document.getElementById(args.id);
-      activeWindow.classList.add("active");
-    }
-    """
-
-    Wasm.run_js!(js, %{id: window_id})
+    WindowSupervisor.list_windows()
+    |> Enum.each(fn {id, pid} ->
+      Window.set_active(pid, id == window_id)
+    end)
   end
 
   @dialyzer {:no_return, detect_mobile: 0}
