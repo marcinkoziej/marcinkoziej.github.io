@@ -22,9 +22,6 @@ defmodule Portfolio.Terminal do
       type: :elixir
     )
 
-    IO.puts("Aligning terminal....")
-    send_input("import Portfolio.Terminal.Helpers\n")
-
     initialize_term_gui()
 
     {:ok, %{}}
@@ -32,6 +29,13 @@ defmodule Portfolio.Terminal do
 
   @impl GenServer
   def handle_info({:tty_data, code_output}, state) do
+    # XXX This is a hack to import helpers into terminal on start and restart.
+    # After a deep dive into ExTTY and IEx, I was not able to figure out how to monitor for IEx.Evaluator errors
+    # What make it harder is that in WASM, some process introspection calls (Process.info) crash
+    if String.starts_with?(code_output, "Interactive Elixir") do
+      send_input("import Portfolio.Terminal.Helpers  # setup REPL commands\n")
+    end
+
     # Send output to the JavaScript terminal
     """
     ({ args }) => {
